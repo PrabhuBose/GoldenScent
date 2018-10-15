@@ -67,4 +67,19 @@
     <color name="color_notifications">#238CC3</color>
     <color name="color_magazine_dummy">#60D0C2</color>
     <color name="color_my_profile">#F18352</color>
+
+    <color name="list_item_title">#fff</color>
+    <color name="list_background">#FFF</color>
+    <color name="list_background_pressed">#E7E8E9</color>
+    <color name="list_divider">#272727</color>
+    <color name="cell_bg_normal">#2196F3</color>
+
+    <color name="bg_item_normal_state">#ffffffff</color>
+    <color name="bg_group_item_normal_state">#fffafafa</color>
+    <color name="bg_group_item_normal_pressed_state">#ffcfd8dc</color>
+    <color name="bg_group_item_expanded_state">#20000000</color>
+    <color name="bg_group_item_expanded_pressed_state">#ffcfd8dc</color>
+    <color name="expandable_item_indicator_color">#42000000</color>
+    <color name="bg_swipe_item_neutral">@android:color/transparent</color>
+    <color name="header_normal_bg">#FFEEEEEE</color>
 </resources>
