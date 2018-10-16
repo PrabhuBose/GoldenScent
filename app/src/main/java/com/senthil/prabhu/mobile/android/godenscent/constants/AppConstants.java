@@ -17,4 +17,13 @@ public class AppConstants {
             R.id.cell_3
     };
 
+
+    public final static String[] gridData = {"Pencil", "Lipstick", "Lipgloss", "Lip Balm", "Treatment", "Palette"};
+
+    public final static Integer[] thumbNailImages = {R.drawable.pencil, R.drawable.lipstick, R.drawable.lip_gloss,
+            R.drawable.lip_balm, R.drawable.treatment, R.drawable.palette};
+
+    public final static String[] groupHeading = {"Lips", "Face", "Nails"};
+
+
 }

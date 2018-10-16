@@ -20,13 +20,10 @@ import com.senthil.prabhu.mobile.android.godenscent.constants.AppConstants;
 import com.senthil.prabhu.mobile.android.godenscent.utils.ListChopper;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ExampleExpandableDataProvider extends AbstractExpandableDataProvider {
-
-    private String mData = "ABC";
-
-    private String[] data = {"Lips", "Face", "Nails"};
 
 
     List<ConcreteGroupData> concreteGroupList;
@@ -36,13 +33,13 @@ public class ExampleExpandableDataProvider extends AbstractExpandableDataProvide
      */
     public ExampleExpandableDataProvider() {
         // extract group items from data
-        final String groupItems = mData;
+        final String[] groupItems = AppConstants.groupHeading;
         concreteGroupList = new ArrayList<>();
 
-        for (int i = 0; i < groupItems.length(); i++) {
+        for (int i = 0; i < groupItems.length; i++) {
             //noinspection UnnecessaryLocalVariable
             final long groupId = i;
-            final String groupText = Character.toString(groupItems.charAt(i));
+            final String groupText = groupItems[i];
 
             final ConcreteGroupData group = new ConcreteGroupData(groupId, groupText);
             // add group item to groups' list
@@ -53,7 +50,7 @@ public class ExampleExpandableDataProvider extends AbstractExpandableDataProvide
 
     @Override
     public int getGroupCount() {
-        return data.length;
+        return AppConstants.groupHeading.length;
     }
 
     @Override
@@ -95,18 +92,17 @@ public class ExampleExpandableDataProvider extends AbstractExpandableDataProvide
             mText = groupText;
             mId = groupId;
             // each group manages its children data
-            String mChildDataSource = "abcdef";
-            List<String> childrenData = new ArrayList<>();
-            for (int j = 0; j < mChildDataSource.length(); j++) {
-                final String childText = mText + Character.toString(mChildDataSource.charAt(j));
-                childrenData.add(childText);
-            }
+
+            List<String> childrenData = new ArrayList<>(Arrays.asList(AppConstants.gridData));
+            List<Integer> childrenDataImage = new ArrayList<>(Arrays.asList(AppConstants.thumbNailImages));
+
             // split whole children data into small arrays of data, each array must have at most the same size
             List<List<String>> childrenDataArrays = ListChopper.splitListBySize(childrenData, AppConstants.MAX_CELLS_PER_GRID_ROW);
+            List<List<Integer>> childrenImageArrays = ListChopper.splitListBySize(childrenDataImage, AppConstants.MAX_CELLS_PER_GRID_ROW);
 
             // Then each grid holds an array of children data
             for (int k = 0; k < childrenDataArrays.size(); k++) {
-                final ConcreteGridData gridData = new ConcreteGridData(k, childrenDataArrays.get(k));
+                final ConcreteGridData gridData = new ConcreteGridData(k, childrenDataArrays.get(k), childrenImageArrays.get(k));
                 gridChildDataList.add(gridData);
             }
         }
@@ -149,14 +145,17 @@ public class ExampleExpandableDataProvider extends AbstractExpandableDataProvide
     public static final class ConcreteGridData extends GridData {
 
         private int mId;
+        private Integer thumbNail;
 
         private boolean mPinned;
         // would lay more than one child data per row
         private List<String> childDataArray;
+        private List<Integer> childImagesArray;
 
-        ConcreteGridData(int id, List<String> childDataArray) {
+        ConcreteGridData(int id, List<String> childDataArray, List<Integer> childImagesArray) {
             mId = id;
             this.childDataArray = childDataArray;
+            this.childImagesArray = childImagesArray;
         }
 
         @Override
@@ -185,6 +184,10 @@ public class ExampleExpandableDataProvider extends AbstractExpandableDataProvide
 
         public List<String> getGridDataArray() {
             return childDataArray;
+        }
+
+        public List<Integer> getGridImageArray() {
+            return childImagesArray;
         }
     }
 }

@@ -21,9 +21,9 @@
             android:layout_gravity="center_vertical|left"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="32dp"
-            android:gravity="center"
-            android:text="QWWEEEE"
-            android:textColor="@color/black" />
+            android:gravity="center_vertical"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
 
         <com.senthil.prabhu.mobile.android.godenscent.widget.ExpandableItemIndicator
             android:id="@+id/indicator"
@@ -33,5 +33,6 @@
             android:layout_marginRight="1dp" />
 
     </FrameLayout>
+
 
 </RelativeLayout>

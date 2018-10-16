@@ -64,9 +64,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     private void setupRecyclerView(ExampleExpandableDataProvider mDataProvider, Bundle savedInstanceState) {
-        //noinspection ConstantConditions
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 1, LinearLayoutManager.VERTICAL, false);
-        RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.expandable_recycler_view);
+        RecyclerView mRecyclerView = findViewById(R.id.expandable_recycler_view);
         final Parcelable eimSavedState = (savedInstanceState != null) ? savedInstanceState.getParcelable(SAVED_STATE_EXPANDABLE_ITEM_MANAGER) : null;
         mRecyclerViewExpandableItemManager = new RecyclerViewExpandableItemManager(eimSavedState);
         mRecyclerViewExpandableItemManager.setOnGroupExpandListener(this);
@@ -83,15 +82,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         assert mRecyclerView != null;
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerView.setAdapter(mWrappedAdapter);  // requires *wrapped* adapter
+        mRecyclerView.setAdapter(mWrappedAdapter);
         mRecyclerView.setItemAnimator(animator);
         mRecyclerView.setHasFixedSize(true);
 
-        if (supportsViewElevation()) {
-            // Lollipop or later has native drop shadow feature. ItemShadowDecorator is not required.
-        } else {
-//            mRecyclerView.addItemDecoration(new ItemShadowDecorator((NinePatchDrawable) ContextCompat.getDrawable(this, R.drawable.material_shadow_z1)));
-        }
+
         mRecyclerView.addItemDecoration(new SimpleListDividerDecorator(ContextCompat.getDrawable(this,
                 R.drawable.list_divider_h), true));
         mRecyclerViewExpandableItemManager.attachRecyclerView(mRecyclerView);

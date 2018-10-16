@@ -21,6 +21,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.h6ah4i.android.widget.advrecyclerview.expandable.ExpandableItemConstants;
@@ -90,7 +92,8 @@ public class ExpandableGridItemAdapter
 
     public class GridRowHolder extends MyBaseViewHolder implements View.OnClickListener {
         TextView[] dataDisplay = new TextView[AppConstants.MAX_CELLS_PER_GRID_ROW];
-        FrameLayout[] cells = new FrameLayout[AppConstants.CELLS_IDS.length];
+        ImageView[] imageViews = new ImageView[AppConstants.MAX_CELLS_PER_GRID_ROW];
+        RelativeLayout[] cells = new RelativeLayout[AppConstants.CELLS_IDS.length];
         OnCellClickListener cellClickListener = null;
         private List<String> gridData;
         private long parentId = -1;
@@ -109,7 +112,12 @@ public class ExpandableGridItemAdapter
                     v.findViewById(R.id.text3)
             };
 
-            cells = new FrameLayout[]{
+            imageViews = new ImageView[]{
+                    v.findViewById(R.id.thumbNail1),
+                    v.findViewById(R.id.thumbNail2),
+                    v.findViewById(R.id.thumbNail3)
+            };
+            cells = new RelativeLayout[]{
                     v.findViewById(AppConstants.CELLS_IDS[0]),
                     v.findViewById(AppConstants.CELLS_IDS[1]),
                     v.findViewById(AppConstants.CELLS_IDS[2])
@@ -117,7 +125,7 @@ public class ExpandableGridItemAdapter
 
         }
 
-        public void populateGrid(long parentId, List<String> data, String lastSelectedData) {
+        public void populateGrid(long parentId, List<String> data, List<Integer> thumbNails, String lastSelectedData) {
 
             this.gridData = data;
             this.parentId = parentId;
@@ -128,22 +136,11 @@ public class ExpandableGridItemAdapter
             int lastDataIndex = -1;
             for (int i = 0; i < gridData.size(); i++) {
                 this.dataDisplay[i].setText(gridData.get(i));
-                // set background resource (target view ID: container)
-                // against "selected" data
-                if (lastSelectedData.equals(gridData.get(i))) {
-                    this.cells[i].setBackgroundResource(R.drawable.cell_bg_pressed);
-                    // keep track of selected cell
-                    setLastSelectedCell(this.cells[i]);
-                } else {
-                    this.cells[i].setBackgroundResource(R.drawable.cell_bg_normal);
-                }
-                // attach data tag to cell
+                this.imageViews[i].setImageResource(thumbNails.get(i));
+
                 cells[i].setTag(gridData.get(i));
-                // set a cell clickable only if it hold data. no need to click a blank cell
                 cells[i].setOnClickListener(this);
-                // make cell visible
                 cells[i].setVisibility(View.VISIBLE);
-                // keep track of index of last cell used in this row
                 lastDataIndex = i;
             }
             // remove unused cells from row
@@ -269,7 +266,8 @@ public class ExpandableGridItemAdapter
                 (ExampleExpandableDataProvider.ConcreteGridData) mProvider.getGridItem(groupPosition, childPosition);
 
         List<String> gridData = item.getGridDataArray();
-        holder.populateGrid(groupPosition, gridData, getLastSelectedData());
+        List<Integer> gridImages = item.getGridImageArray();
+        holder.populateGrid(groupPosition, gridData, gridImages, getLastSelectedData());
         int bgResId;
         bgResId = R.drawable.bg_item_normal_state;
 
