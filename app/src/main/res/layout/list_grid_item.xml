@@ -39,9 +39,10 @@
                 android:ellipsize="middle"
                 android:gravity="center"
                 android:lines="2"
+                android:fontFamily="sans-serif"
                 android:text="As"
                 android:textColor="@color/black"
-                android:textSize="18sp"
+                android:textSize="14sp"
                 tools:ignore="RtlHardcoded" />
         </RelativeLayout>
 
@@ -67,10 +68,11 @@
                 android:layout_gravity="bottom"
                 android:ellipsize="middle"
                 android:gravity="center"
+                android:fontFamily="sans-serif"
                 android:lines="2"
                 android:text="As"
                 android:textColor="@color/black"
-                android:textSize="18sp"
+                android:textSize="14sp"
                 tools:ignore="RtlHardcoded" />
         </RelativeLayout>
 
@@ -99,8 +101,9 @@
                 android:gravity="center"
                 android:lines="2"
                 android:text="As"
+                android:fontFamily="sans-serif"
                 android:textColor="@color/black"
-                android:textSize="18sp"
+                android:textSize="14sp"
                 tools:ignore="RtlHardcoded" />
         </RelativeLayout>
 

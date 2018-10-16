@@ -1,6 +1,5 @@
 package com.senthil.prabhu.mobile.android.godenscent.activities;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.content.ContextCompat;
@@ -23,7 +22,6 @@ import com.senthil.prabhu.mobile.android.godenscent.adapter.CategoriesAdapter;
 import com.senthil.prabhu.mobile.android.godenscent.adapter.ExpandableGridItemAdapter;
 import com.senthil.prabhu.mobile.android.godenscent.constants.AppConstants;
 import com.senthil.prabhu.mobile.android.godenscent.model.ExampleExpandableDataProvider;
-import com.senthil.prabhu.mobile.android.godenscent.model.ImageChange;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, RecyclerViewExpandableItemManager.OnGroupCollapseListener,
         RecyclerViewExpandableItemManager.OnGroupExpandListener, AbstractExpandableItemAdapter.OnCellClickListener {
@@ -43,27 +41,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-        initViews();
-
+        setUpRecyvlerViews();
         mDataProvider = new ExampleExpandableDataProvider();
-
-        setupRecyclerView(mDataProvider, savedInstanceState);
-        // make the first item expanded by default when activity is first opened
+        setUpExpandableRecyclerView(mDataProvider, savedInstanceState);
         mRecyclerViewExpandableItemManager.expandGroup(0);
 
 
     }
 
-    private void initViews() {
-
-        scrollView = findViewById(R.id.scrollView);
-
+    private void setUpRecyvlerViews() {
 
         CategoriesAdapter categoriesAdapter = new CategoriesAdapter(this, AppConstants.categories);
-
-
-
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(mLayoutManager);
@@ -71,7 +59,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         recyclerView.setAdapter(categoriesAdapter);
 
         BestSellerAdapter bestSellerAdapter = new BestSellerAdapter(this, AppConstants.categories);
-
         RecyclerView bestSellerRecyclerView = findViewById(R.id.bestSellerRecyclerView);
         bestSellerRecyclerView.setLayoutManager(new GridLayoutManager(this, 3, GridLayoutManager.HORIZONTAL, false));
         bestSellerRecyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -81,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-    private void setupRecyclerView(ExampleExpandableDataProvider mDataProvider, Bundle savedInstanceState) {
+    private void setUpExpandableRecyclerView(ExampleExpandableDataProvider mDataProvider, Bundle savedInstanceState) {
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 1, LinearLayoutManager.VERTICAL, false);
         RecyclerView mRecyclerView = findViewById(R.id.expandable_recycler_view);
         final Parcelable eimSavedState = (savedInstanceState != null) ? savedInstanceState.getParcelable(SAVED_STATE_EXPANDABLE_ITEM_MANAGER) : null;
@@ -89,13 +76,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mRecyclerViewExpandableItemManager.setOnGroupExpandListener(this);
         mRecyclerViewExpandableItemManager.setOnGroupCollapseListener(this);
 
-        //adapter
         myItemAdapter = new ExpandableGridItemAdapter(mDataProvider, MainActivity.this);
         mWrappedAdapter = mRecyclerViewExpandableItemManager.createWrappedAdapter(myItemAdapter);
-        // wrap for expanding
         final GeneralItemAnimator animator = new RefactoredDefaultItemAnimator();
-        // Change animations are enabled by default since support-v7-recyclerview v22.
-        // Need to disable them when using animation indicator.
+
         animator.setSupportsChangeAnimations(false);
 
         assert mRecyclerView != null;
@@ -139,9 +123,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    private boolean supportsViewElevation() {
-        return (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP);
-    }
 
     private void adjustScrollPositionOnGroupExpanded(int groupPosition) {
         int childItemHeight = this.getResources().getDimensionPixelSize(R.dimen.list_grid_item_height);

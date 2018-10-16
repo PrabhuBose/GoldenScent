@@ -53,21 +53,17 @@
                 android:id="@+id/borderImage"
                 android:layout_width="match_parent"
                 android:layout_height="5dp"
-                android:layout_gravity="bottom"
-                android:gravity="bottom"
-                android:background="@color/black"
                 android:layout_alignParentBottom="true"
+                android:layout_gravity="bottom"
+                android:background="@color/black"
+                android:gravity="bottom"
                 app:srcCompat="@drawable/makeup" />
-
-
 
 
         </RelativeLayout>
 
 
     </android.support.v7.widget.CardView>
-
-
 
 
 </RelativeLayout>

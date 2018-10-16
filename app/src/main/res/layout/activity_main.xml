@@ -68,6 +68,7 @@
                             android:gravity="center"
                             android:maxLines="2"
                             android:text="Bestsellers"
+                            android:fontFamily="sans-serif"
                             android:textAllCaps="false"
                             android:textColor="@color/black"
                             android:textSize="20sp"
@@ -83,9 +84,11 @@
                             android:gravity="center"
                             android:maxLines="2"
                             android:text="View All"
+                            android:textStyle="bold"
                             android:textAllCaps="false"
+                            android:layout_marginEnd="5dp"
                             android:textColor="@color/black"
-                            android:textSize="18sp"
+                            android:textSize="14sp"
                             tools:ignore="RtlCompat" />
 
                     </RelativeLayout>
@@ -94,6 +97,7 @@
                         android:id="@+id/bestSellerRecyclerView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
                         android:layout_marginEnd="10dp" />
 
 

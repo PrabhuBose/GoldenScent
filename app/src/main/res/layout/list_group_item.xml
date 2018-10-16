@@ -23,6 +23,7 @@
             android:layout_marginRight="32dp"
             android:gravity="center_vertical"
             android:textColor="@color/black"
+            android:fontFamily="sans-serif"
             android:textSize="20sp" />
 
         <com.senthil.prabhu.mobile.android.godenscent.widget.ExpandableItemIndicator
