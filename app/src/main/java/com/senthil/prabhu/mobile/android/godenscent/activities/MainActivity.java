@@ -10,6 +10,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ScrollView;
 
 import com.h6ah4i.android.widget.advrecyclerview.animator.GeneralItemAnimator;
 import com.h6ah4i.android.widget.advrecyclerview.animator.RefactoredDefaultItemAnimator;
@@ -17,10 +18,12 @@ import com.h6ah4i.android.widget.advrecyclerview.decoration.SimpleListDividerDec
 import com.h6ah4i.android.widget.advrecyclerview.expandable.RecyclerViewExpandableItemManager;
 import com.h6ah4i.android.widget.advrecyclerview.utils.AbstractExpandableItemAdapter;
 import com.senthil.prabhu.mobile.android.godenscent.R;
+import com.senthil.prabhu.mobile.android.godenscent.adapter.BestSellerAdapter;
 import com.senthil.prabhu.mobile.android.godenscent.adapter.CategoriesAdapter;
 import com.senthil.prabhu.mobile.android.godenscent.adapter.ExpandableGridItemAdapter;
 import com.senthil.prabhu.mobile.android.godenscent.constants.AppConstants;
 import com.senthil.prabhu.mobile.android.godenscent.model.ExampleExpandableDataProvider;
+import com.senthil.prabhu.mobile.android.godenscent.model.ImageChange;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, RecyclerViewExpandableItemManager.OnGroupCollapseListener,
         RecyclerViewExpandableItemManager.OnGroupExpandListener, AbstractExpandableItemAdapter.OnCellClickListener {
@@ -33,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ExpandableGridItemAdapter myItemAdapter = null;
 
     private int lastExpandedPosition = -10;
+    private ScrollView scrollView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,13 +56,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initViews() {
+
+        scrollView = findViewById(R.id.scrollView);
+
+
         CategoriesAdapter categoriesAdapter = new CategoriesAdapter(this, AppConstants.categories);
+
+
 
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(categoriesAdapter);
+
+        BestSellerAdapter bestSellerAdapter = new BestSellerAdapter(this, AppConstants.categories);
+
+        RecyclerView bestSellerRecyclerView = findViewById(R.id.bestSellerRecyclerView);
+        bestSellerRecyclerView.setLayoutManager(new GridLayoutManager(this, 3, GridLayoutManager.HORIZONTAL, false));
+        bestSellerRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        bestSellerRecyclerView.setAdapter(bestSellerAdapter);
+
 
     }
 
@@ -132,4 +150,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mRecyclerViewExpandableItemManager.scrollToGroup(groupPosition, childItemHeight, topMargin, topMargin);
     }
 
+
 }
+
